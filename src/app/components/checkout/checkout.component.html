@@ -1,0 +1,56 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="fullName">Full Name</label>
+    <input id="fullName" formControlName="fullName">
+  </div>
+  <div>
+    <label for="address">Address</label>
+    <input id="address" formControlName="address">
+  </div>
+  <div>
+    <label for="city">City</label>
+    <input id="city" formControlName="city">
+  </div>
+  <div>
+    <label for="state">State</label>
+    <input id="state" formControlName="state">
+  </div>
+  <div>
+    <label for="zipCode">Zip Code</label>
+    <input id="zipCode" formControlName="zipCode">
+  </div>
+  <div>
+    <label for="country">Country</label>
+    <input id="country" formControlName="country">
+  </div>
+  <div>
+    <label for="phoneNumber">Phone Number</label>
+    <input id="phoneNumber" formControlName="phoneNumber">
+  </div>
+  <div>
+    <label for="paymentMethod">Payment Method</label>
+    <select id="paymentMethod" formControlName="paymentMethod">
+      <option value="creditCard">Credit Card</option>
+      <option value="paypal">PayPal</option>
+      <option value="applePay">Apple Pay</option>
+      <option value="googlePay">Google Pay</option>
+    </select>
+  </div>
+  <div>
+    <label for="cardNumber">Card Number</label>
+    <input id="cardNumber" formControlName="cardNumber">
+  </div>
+  <div>
+    <label for="nameOnCard">Name on Card</label>
+    <input id="nameOnCard" formControlName="nameOnCard">
+  </div>
+  <div>
+    <label for="expirationDate">Expiration Date</label>
+    <input id="expirationDate" formControlName="expirationDate">
+  </div>
+  <div>
+    <label for="cvv">CVV</label>
+    <input id="cvv" formControlName="cvv">
+  </div>
+  <button type="submit">Place Order</button>
+</form>
