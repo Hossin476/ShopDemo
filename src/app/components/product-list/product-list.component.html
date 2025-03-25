@@ -1,8 +1,73 @@
-<div class="product-list">
-  <div *ngFor="let product of products" class="product-card">
-    <img [src]="product.imageUrl" alt="{{ product.name }}">
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <p>{{ product.price | currency }}</p>
+<div class="bg-gray-50 min-h-screen py-8 px-4">
+  <h1 class="text-2xl font-medium text-center mb-8 text-gray-800">Products</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let product of products;" class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+      <!-- Image -->
+      <div class="relative h-56 overflow-hidden">
+        <img [src]="product.imageUrl" [alt]="product.name" class="w-full h-full object-cover">
+
+        <!-- Featured tag (if applicable) -->
+        <div *ngIf="product.featured" class="absolute top-3 left-3 bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center">
+          <i-lucide [name]="awardIcon" class="w-3 h-3 mr-1"></i-lucide>
+          Featured
+        </div>
+      </div>
+
+      <div class="p-4">
+        <!-- Category -->
+        <div class="text-xs text-gray-500 uppercase mb-1 flex items-center">
+          <i-lucide [name]="tagIcon" class="w-3 h-3 mr-1"></i-lucide>
+          {{product.category}}
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-lg font-medium text-gray-900 mb-1">{{product.name}}</h2>
+
+        <!-- Rating -->
+        <div class="flex items-center mb-2">
+          <div class="flex text-yellow-400 mr-1">
+            <ng-container *ngFor="let star of generateStars(product.rating);">
+              <i-lucide *ngIf="star === 1" [name]="starIcon" class="w-4 h-4 text-yellow-400"></i-lucide>
+              <i-lucide *ngIf="star === 0.5" [name]="starHalfIcon" class="w-4 h-4 text-yellow-400"></i-lucide>
+              <i-lucide *ngIf="star === 0" [name]="starOffIcon" class="w-4 h-4 text-gray-300"></i-lucide>
+            </ng-container>
+          </div>
+          <span class="text-xs text-gray-500">{{product.reviews}} reviews</span>
+        </div>
+
+        <!-- Description -->
+        <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{product.description}}</p>
+
+        <!-- Price -->
+        <div class="flex items-center mb-3">
+          <span *ngIf="product.discountPrice" class="text-lg font-medium mr-2">${{product.discountPrice.toFixed(2)}}</span>
+          <span *ngIf="product.discountPrice" class="text-sm text-gray-500 line-through">${{product.price.toFixed(2)}}</span>
+          <span *ngIf="!product.discountPrice" class="text-lg font-medium">${{product.price.toFixed(2)}}</span>
+        </div>
+
+        <!-- Key specs (just a few important ones) -->
+        <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-xs text-gray-600 mb-4">
+          <div *ngIf="product.specs['display']">Display: {{product.specs['display']}}</div>
+          <div *ngIf="product.specs['processor']">Processor: {{product.specs['processor']}}</div>
+          <div *ngIf="product.specs['storage']">Storage: {{product.specs['storage']}}</div>
+        </div>
+
+        <!-- Action button -->
+        <button (click)="addToCart(product)"
+          class="w-full bg-gray-900 hover:bg-black text-white py-2 px-4 rounded text-sm font-medium transition-colors flex items-center justify-center"
+          [class.bg-green-600]="addedToCart[product.id]" [class.hover:bg-green-700]="addedToCart[product.id]">
+          <i-lucide [name]="addedToCart[product.id] ? checkIcon : cartIcon" class="w-4 h-4 mr-2"></i-lucide>
+          {{ addedToCart[product.id] ? 'Added to Cart' : 'Add to Cart' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="mt-8">
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
+      [itemsPerPage]="itemsPerPage" [totalItems]="totalItems" (pageChange)="onPageChange($event)">
+    </app-pagination>
   </div>
 </div>

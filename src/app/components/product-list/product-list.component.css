@@ -1,0 +1,28 @@
+/* Additional styles for animations and effects */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Image transitions */
+img {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Add a smooth transition for the button color change */
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
