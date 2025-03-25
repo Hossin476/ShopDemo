@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CartService } from '../../services/cart.service'; // Changed to regular import
+import { CartService } from '../../services/cart.service';
 import type { CartItem } from '../../models/cart.type';
 import {
   LucideAngularModule,
@@ -16,12 +16,10 @@ import {
   standalone: true,
   imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
 
-  // Lucide icons
   trashIcon = Trash2;
   plusIcon = Plus;
   minusIcon = Minus;
@@ -43,7 +41,7 @@ export class CartComponent implements OnInit {
   }
 
   get tax(): number {
-    return this.subtotal * 0.08; // 8% tax rate
+    return this.subtotal * 0.08;
   }
 
   get total(): number {

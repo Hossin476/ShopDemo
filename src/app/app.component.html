@@ -1,11 +1,35 @@
-<header>
-  <nav>
-    <a routerLink="/">Home</a>
-    <a routerLink="/products">Products</a>
-    <a routerLink="/cart">Cart</a>
-    <a routerLink="/checkout">Checkout</a>
+<header class="bg-white shadow-md py-4 px-6">
+  <nav class="flex items-center justify-between max-w-7xl mx-auto">
+    <div class="flex items-center space-x-4">
+      <a routerLink="/"
+        class="flex cursor-pointer text-xl items-center text-gray-800 hover:text-blue-600 transition-colors duration-300">
+        ShopDemo
+      </a>
+      <a routerLink="/products"
+        class="flex items-center cursor-pointer text-gray-800 hover:text-blue-600 transition-colors duration-300">
+        <i-lucide [name]="packagesIcon" class="mr-2"></i-lucide>
+        Products
+      </a>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <a routerLink="/cart"
+        class="relative cursor-pointer flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-300">
+        <i-lucide [name]="cartIcon" class="w-6 h-6"></i-lucide>
+        @if (cartItemCount > 0) {
+        <span
+          class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+          {{ cartItemCount }}
+        </span>
+        }
+      </a>
+    </div>
   </nav>
 </header>
 <main>
   <router-outlet></router-outlet>
 </main>
+
+<div class="max-w-4xl mx-auto px-4 py-8 mt-12 border-t border-gray-200 text-center text-gray-500">
+  <p>© 2025 Lahoucine Shail's ShopDemo </p>
+</div>

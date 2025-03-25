@@ -1,13 +1,40 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { CartService } from './services/cart.service';
+import { Subscription } from 'rxjs';
+
+import {
+  LucideAngularModule,
+  Package,
+  ShoppingCart
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    LucideAngularModule
+  ],
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'ecommerce-project';
+export class AppComponent implements OnInit, OnDestroy {
+  packagesIcon = Package;
+  cartIcon = ShoppingCart;
+  cartItemCount = 0;
+  private cartSubscription: Subscription | undefined;
+
+  constructor(private cartService: CartService) {}
+
+  ngOnInit(): void {
+    this.cartSubscription = this.cartService.cartItems$.subscribe(() => {
+      this.cartItemCount = this.cartService.getCartItemCount();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.cartSubscription?.unsubscribe();
+  }
 }

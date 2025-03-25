@@ -1,0 +1,72 @@
+<div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-800 flex items-center space-x-3">
+                <i-lucide [name]="filterIcon" class="w-6 h-6 text-blue-600"></i-lucide>
+                <span>Filter Products</span>
+            </h2>
+            @if (hasActiveFilters()) {
+            <button (click)="resetFilters()"
+                class="group flex items-center text-sm font-medium text-red-600 hover:text-red-800 transition-colors cursor-pointer">
+                <i-lucide [name]="clearIcon"
+                    class="w-4 h-4 mr-2 group-hover:rotate-180 transition-transform"></i-lucide>
+                Clear Filters
+            </button>
+            }
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 p-6 bg-white">
+        <div class="space-y-4">
+            <div class="flex items-center justify-between border-b pb-2 cursor-pointer">
+                <label class="text-lg font-semibold text-gray-700">Categories</label>
+                <i-lucide [name]="chevronDownIcon" class="w-5 h-5 text-gray-500"></i-lucide>
+            </div>
+            <div class="space-y-2 max-h-48 overflow-y-auto">
+                @for (category of uniqueCategories; track category) {
+                <label
+                    class="flex items-center justify-between cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors group">
+                    <span class="text-sm text-gray-600 group-hover:text-blue-600">{{category}}</span>
+                    <input type="checkbox" [value]="category" [(ngModel)]="selectedCategories[category]"
+                        (change)="applyFilters()"
+                        class="form-checkbox h-4 w-4 text-blue-600 rounded focus:outline-none transition-all cursor-pointer">
+                </label>
+                }
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="flex items-center justify-between border-b pb-2 cursor-pointer">
+                <label class="text-lg font-semibold text-gray-700">Price Range</label>
+                <i-lucide [name]="chevronDownIcon" class="w-5 h-5 text-gray-500"></i-lucide>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="relative flex-1">
+                    <input type="number" [(ngModel)]="priceRange.min" (change)="applyFilters()" placeholder="Min"
+                        class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none transition-all cursor-pointer">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                </div>
+                <span class="text-gray-400">-</span>
+                <div class="relative flex-1">
+                    <input type="number" [(ngModel)]="priceRange.max" (change)="applyFilters()" placeholder="Max"
+                        class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none transition-all cursor-pointer">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="flex items-center justify-between  border-b pb-2 cursor-pointer">
+                <label class="text-lg font-semibold text-gray-700">Minimum Rating</label>
+                <i-lucide [name]="chevronDownIcon" class="w-5 h-5 text-gray-500"></i-lucide>
+            </div>
+            <select [(ngModel)]="selectedRating" (change)="applyFilters()"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm transition-all cursor-pointer focus:outline-none">
+                <option [value]="0">Any Rating</option>
+                <option [value]="3">3+ Stars</option>
+                <option [value]="4">4+ Stars</option>
+                <option [value]="5">5 Stars</option>
+            </select>
+        </div>
+    </div>
+</div>

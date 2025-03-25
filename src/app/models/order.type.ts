@@ -1,5 +1,3 @@
-// Product interface is already defined in product.type.ts
-// Category interface
 export interface Category {
     id: number;
     name: string;
@@ -56,4 +54,3 @@ export interface Category {
     trackingNumber?: string;
     notes?: string;
   }
-  

@@ -1,14 +1,28 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { CartComponent } from './components/cart/cart.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'checkout', component: CheckoutComponent }
+  { 
+    path: '', 
+    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent) 
+  },
+  { 
+    path: 'products', 
+    loadComponent: () => import('./components/product-list/product-list.component').then(m => m.ProductListComponent) 
+  },
+  { 
+    path: 'products/:id', 
+    loadComponent: () => import('./components/product-detail/product-detail.component').then(m => m.ProductDetailComponent) 
+  },
+  { 
+    path: 'cart', 
+    loadComponent: () => import('./components/cart/cart.component').then(m => m.CartComponent) 
+  },
+  { 
+    path: 'checkout', 
+    loadComponent: () => import('./components/checkout/checkout.component').then(m => m.CheckoutComponent) 
+  },
+  { 
+    path: '**', 
+    redirectTo: '' 
+  }
 ];
